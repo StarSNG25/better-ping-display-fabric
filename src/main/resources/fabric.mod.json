@@ -6,12 +6,12 @@
   "name": "Better Ping Display",
   "description": "Shows the actual ping number instead of just bars in the player list!",
   "authors": [
-    "Quintinity"
+    "Star_SNG"
   ],
   "contact": {
-    "homepage": "https://github.com/vladmarica/better-ping-display-fabric",
-    "sources": "https://github.com/vladmarica/better-ping-display-fabric",
-    "issues": "https://github.com/vladmarica/better-ping-display-fabric/issues"
+    "homepage": "https://github.com/StarSNG25/better-ping-display-fabric",
+    "sources": "https://github.com/StarSNG25/better-ping-display-fabric",
+    "issues": "https://github.com/StarSNG25/better-ping-display-fabric/issues"
   },
 
   "license": "MIT",
@@ -20,7 +20,7 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "com.vladmarica.betterpingdisplay.BetterPingDisplayMod"
+      "com.starsng.betterpingdisplay.BetterPingDisplayMod"
     ]
   },
   "mixins": [
@@ -29,7 +29,7 @@
 
   "depends": {
     "fabricloader": ">=0.16",
-    "minecraft": "${minecraft_version}"
+    "minecraft": ">=${minecraft_version}"
   },
   "suggests": {}
 }
