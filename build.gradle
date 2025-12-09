@@ -1,15 +1,14 @@
 plugins {
-	id 'fabric-loom' version '1.13-SNAPSHOT'
+	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
-
-archivesBaseName = project.archives_base_name
 version = "${minecraft_version}-${project.mod_version}"
 group = project.maven_group
-minecraft_version = project.minecraft_version
+
+base {
+	archivesName = project.archives_base_name
+}
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -20,10 +19,14 @@ dependencies {
 }
 
 processResources {
-	duplicatesStrategy = 'WARN'
-
+	inputs.property "version", project.version
+	inputs.property "minecraft_version", project.minecraft_version
+	
 	filesMatching("fabric.mod.json") {
-		expand "version": project.mod_version, "minecraft_version": minecraft_version
+		expand(
+			version: project.version,
+			minecraft_version: project.minecraft_version
+		)
 	}
 }
 
@@ -35,8 +38,22 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
 }
 
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
 jar {
-	from "LICENSE"
+	inputs.property "archivesName", project.base.archivesName
+
+	from("LICENSE") {
+		rename {"${it}_${inputs.properties.archivesName}" }
+	}
 }
 
 // configure the maven publication

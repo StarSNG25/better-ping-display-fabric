@@ -13,6 +13,7 @@ src/main/java/net/fabricmc/*
 build/
 out/
 classes/
+remappedSrc/
 
 # eclipse
 
